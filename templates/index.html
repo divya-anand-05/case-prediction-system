@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Case Prediction System</title>
     <style>
-      /* 🌿 Global Styles */
+      
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         background: linear-gradient(135deg, #a2c2e2, #f6f9fc);
@@ -92,7 +92,6 @@
         text-decoration: underline;
       }
 
-      /* 🌀 Loading Spinner */
       .loading-overlay {
         display: none;
         position: absolute;
@@ -139,7 +138,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>🤖 AI Case Prediction System</h1>
+      <h1> AI Case Prediction System</h1>
       <p>
         Enter any real-world situation below, and the AI will analyze it for
         possible positive and negative outcomes.
@@ -158,10 +157,9 @@
           required
         ></textarea
         ><br />
-        <button type="submit">🔍 Analyze Situation</button>
+        <button type="submit"> Analyze Situation</button>
       </form>
 
-      <!-- 🌀 Loading Animation -->
       <div class="loading-overlay" id="loading">
         <div class="spinner"></div>
         <div class="loading-text">Analyzing... Please wait</div>
@@ -176,7 +174,6 @@
     </div>
 
     <script>
-      // 💡 Show spinner when form is submitted
       const form = document.getElementById("analyzeForm");
       const loadingOverlay = document.getElementById("loading");
       const situationBox = document.getElementById("situation");
@@ -185,15 +182,12 @@
         const situation = situationBox.value.trim();
         situationBox.classList.remove("invalid");
 
-        // Empty input check
         if (situation === "") {
           alert("⚠️ Please enter a situation before analyzing!");
           situationBox.classList.add("invalid");
           event.preventDefault(); // stop form submission
           return;
         }
-
-        // Word count check
         const wordCount = situation
           .split(/\s+/)
           .filter((word) => word.length > 0).length;
@@ -205,9 +199,7 @@
           event.preventDefault(); // stop form submission
           return;
         }
-
-        // ✅ Passed validation
-        loadingOverlay.style.display = "flex"; // show spinner
+        loadingOverlay.style.display = "flex"; 
       });
     </script>
   </body>
