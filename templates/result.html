@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Situation Analysis Result</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f9;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+      }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+      .box {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 45%;
+      }
+      h2 {
+        color: #444;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+      }
+      pre {
+        white-space: pre-wrap;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>AI Situation Analysis</h1>
+    <h3>Situation: {{ situation }}</h3>
+
+    <div class="container">
+      <div class="box">
+        <h2>Positive Possibilities 🌱</h2>
+        <pre>{{ positive }}</pre>
+      </div>
+      <div class="box">
+        <h2>Negative Possibilities ⚠️</h2>
+        <pre>{{ negative }}</pre>
+      </div>
+    </div>
+
+    <br />
+    <center>
+      <a href="/" style="text-decoration: none; color: blue"
+        >🔙 Analyze Another Situation</a
+      >
+    </center>
+  </body>
+</html>

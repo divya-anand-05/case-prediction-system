@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case Prediction System</title>
+    <style>
+      /* 🌿 Global Styles */
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #a2c2e2, #f6f9fc);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        width: 450px;
+        text-align: center;
+        transition: 0.3s ease-in-out;
+        position: relative;
+      }
+
+      .container:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      h1 {
+        color: #333;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+      }
+
+      p {
+        color: #555;
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+      }
+
+      textarea {
+        width: 100%;
+        height: 150px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 1rem;
+        outline: none;
+        resize: none;
+        transition: 0.2s;
+      }
+
+      textarea:focus {
+        border-color: #0078d7;
+        box-shadow: 0 0 5px rgba(0, 120, 215, 0.4);
+      }
+
+      button {
+        margin-top: 25px;
+        background-color: #0078d7;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 12px 30px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background-color: #005fa3;
+      }
+
+      .footer {
+        margin-top: 30px;
+        font-size: 0.85rem;
+        color: #666;
+      }
+
+      .footer a {
+        color: #0078d7;
+        text-decoration: none;
+      }
+
+      .footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* 🌀 Loading Spinner */
+      .loading-overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 16px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .spinner {
+        border: 6px solid #f3f3f3;
+        border-top: 6px solid #0078d7;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loading-text {
+        margin-top: 15px;
+        color: #333;
+        font-weight: 500;
+      }
+
+      textarea.invalid {
+        border-color: red;
+        box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🤖 AI Case Prediction System</h1>
+      <p>
+        Enter any real-world situation below, and the AI will analyze it for
+        possible positive and negative outcomes.
+      </p>
+
+      <form
+        id="analyzeForm"
+        action="/analyze"
+        method="post"
+        onsubmit="return validateInput()"
+      >
+        <textarea
+          id="situation"
+          name="situation"
+          placeholder="Type your situation here..."
+          required
+        ></textarea
+        ><br />
+        <button type="submit">🔍 Analyze Situation</button>
+      </form>
+
+      <!-- 🌀 Loading Animation -->
+      <div class="loading-overlay" id="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">Analyzing... Please wait</div>
+      </div>
+
+      <div class="footer">
+        <p>
+          Powered by
+          <a href="https://ollama.ai" target="_blank">LLaMA3 + Flask</a>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // 💡 Show spinner when form is submitted
+      const form = document.getElementById("analyzeForm");
+      const loadingOverlay = document.getElementById("loading");
+      const situationBox = document.getElementById("situation");
+
+      form.addEventListener("submit", function (event) {
+        const situation = situationBox.value.trim();
+        situationBox.classList.remove("invalid");
+
+        // Empty input check
+        if (situation === "") {
+          alert("⚠️ Please enter a situation before analyzing!");
+          situationBox.classList.add("invalid");
+          event.preventDefault(); // stop form submission
+          return;
+        }
+
+        // Word count check
+        const wordCount = situation
+          .split(/\s+/)
+          .filter((word) => word.length > 0).length;
+        if (wordCount < 5) {
+          alert(
+            "⚠️ Please describe your situation in at least 5 words for better analysis!"
+          );
+          situationBox.classList.add("invalid");
+          event.preventDefault(); // stop form submission
+          return;
+        }
+
+        // ✅ Passed validation
+        loadingOverlay.style.display = "flex"; // show spinner
+      });
+    </script>
+  </body>
+</html>
