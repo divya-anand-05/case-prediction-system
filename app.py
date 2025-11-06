@@ -29,7 +29,6 @@ def analyze():
     positive_part = ""
     negative_part = ""
 
-    # Split the AI output into lines
     lines = ai_output.splitlines()
     current_section = None
 
