@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>History - Situation Analyzer</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #2b1055, #7597de);
+        color: #fff;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+      .card h2 {
+        color: #ffdd57;
+      }
+      .card pre {
+        white-space: pre-wrap;
+        line-height: 1.5;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+        background: #444;
+        padding: 10px 15px;
+        border-radius: 8px;
+        display: inline-block;
+        margin-top: 10px;
+      }
+      a:hover {
+        background: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>History of Analyses</h1>
+
+    {% if history %} {% for item in history %}
+    <div class="card">
+      <h2>Situation:</h2>
+      <p>{{ item.situation }}</p>
+      <h3>Positive Possibilities:</h3>
+      <pre>{{ item.positive }}</pre>
+      <h3>Negative Possibilities:</h3>
+      <pre>{{ item.negative }}</pre>
+    </div>
+    {% endfor %} {% else %}
+    <p>No history found yet!</p>
+    {% endif %}
+
+    <center><a href="/">🔙 Back to Home</a></center>
+  </body>
+</html>

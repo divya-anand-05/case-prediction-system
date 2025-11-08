@@ -1,59 +1,234 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Situation Analysis Result</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Situation Analysis Result</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background: #f4f4f9;
-        padding: 20px;
+      :root {
+        --bg-light: linear-gradient(135deg, #a2c2e2, #f6f9fc);
+        --bg-dark: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        --container-light: #ffffff;
+        --container-dark: #1e1e1e;
+        --text-light: #333;
+        --text-dark: #f9f9f9;
       }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(-45deg, #a2c2e2, #f6f9fc, #b0d0e0, #e8f0ff);
+        background-size: 400% 400%;
+        animation: gradientBG 10s ease infinite;
+        margin: 0;
+        padding: 30px;
+        color: var(--text-light);
+        transition: 0.4s ease;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
       h1 {
         text-align: center;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: var(--text-light);
       }
+
+      h3 {
+        text-align: center;
+        font-weight: 400;
+        color: #444;
+      }
+
       .container {
         display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 30px;
       }
+
       .box {
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 45%;
+        background: var(--container-light);
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 25px;
+        width: 420px;
+        transition: 0.3s ease-in-out;
       }
+
+      .box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
       h2 {
-        color: #444;
+        color: #0078d7;
         border-bottom: 2px solid #ddd;
-        padding-bottom: 10px;
+        padding-bottom: 8px;
+        font-size: 1.3rem;
+        margin-bottom: 10px;
       }
+
       pre {
         white-space: pre-wrap;
         line-height: 1.6;
+        font-size: 1rem;
+        color: #333;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 40px;
+      }
+
+      .footer a {
+        text-decoration: none;
+        color: #0078d7;
+        font-weight: 600;
+        transition: 0.2s;
+      }
+
+      .footer a:hover {
+        color: #005fa3;
+      }
+
+      /*  Dark Mode */
+      body.dark {
+        background: var(--bg-dark);
+        color: var(--text-dark);
+      }
+      body.dark h1 {
+        color: white;
+      }
+
+      body.dark p {
+        color: #ded9d9;
+      }
+
+      body.dark .box {
+        background-color: var(--container-dark);
+        color: var(--text-dark);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.08);
+      }
+
+      body.dark h2 {
+        color: #00bcd4;
+        border-bottom-color: #444;
+      }
+
+      body.dark pre {
+        color: #eaeaea;
+      }
+
+      /*  Theme Toggle */
+      .toggle-container {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+      }
+
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 26px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: #0078d7;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(24px);
+      }
+
+      /*  Responsive Design */
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .box {
+          width: 90%;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>AI Situation Analysis</h1>
+    <!-- Theme Toggle -->
+    <div class="toggle-container">
+      <label class="switch">
+        <input type="checkbox" id="theme-toggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <h1>AI Situation Analysis Result</h1>
     <h3>Situation: {{ situation }}</h3>
 
     <div class="container">
       <div class="box">
-        <h2>Positive Possibilities </h2>
+        <h2>Positive Possibilities 🌱</h2>
         <pre>{{ positive }}</pre>
       </div>
       <div class="box">
-        <h2>Negative Possibilities </h2>
+        <h2>Negative Possibilities ⚠️</h2>
         <pre>{{ negative }}</pre>
       </div>
     </div>
 
-    <br />
-    <center>
-      <a href="/" style="text-decoration: none; color: blue"
-        >🔙 Analyze Another Situation</a
-      >
-    </center>
+    <div class="footer">
+      <a href="/">🔙 Analyze Another Situation</a>
+    </div>
+
+    <script>
+      //  Toggle theme
+      const toggle = document.getElementById("theme-toggle");
+      toggle.addEventListener("change", () => {
+        document.body.classList.toggle("dark");
+      });
+    </script>
   </body>
 </html>

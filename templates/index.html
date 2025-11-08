@@ -5,19 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Case Prediction System</title>
     <style>
-      
+      /* 🌿 Global Styles */
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #a2c2e2, #f6f9fc);
+        background: linear-gradient(-45deg, #a963ef, #f5e1fd, #b47fc3, #ede0f8);
+        background-size: 400% 400%;
+        animation: gradientBG 10s ease infinite;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
         margin: 0;
+        transition: background 0.5s ease;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
       }
 
       .container {
-        background-color: #ffffff;
+        background-color: var(--container-light);
         border-radius: 16px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         padding: 40px;
@@ -25,6 +40,7 @@
         text-align: center;
         transition: 0.3s ease-in-out;
         position: relative;
+        color: var(--text-light);
       }
 
       .container:hover {
@@ -33,7 +49,7 @@
       }
 
       h1 {
-        color: #333;
+        color: var(--text-light);
         font-size: 1.8rem;
         margin-bottom: 20px;
       }
@@ -92,6 +108,7 @@
         text-decoration: underline;
       }
 
+      /* 🌀 Loading Spinner */
       .loading-overlay {
         display: none;
         position: absolute;
@@ -134,11 +151,120 @@
         border-color: red;
         box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
       }
+
+      /* Dark Mode */
+      body.dark {
+        background: var(--bg-dark);
+        color: var(--text-dark);
+      }
+
+      body.dark .container {
+        background-color: var(--container-dark);
+        color: var(--text-dark);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.08);
+      }
+      body.dark h1 {
+        color: white;
+      }
+      body.dark p {
+        color: rgb(207, 196, 196);
+      }
+
+      body.dark textarea {
+        background-color: #2a2a2a;
+        color: #f9f9f9;
+        border-color: #555;
+      }
+
+      body.dark button {
+        background-color: #00bcd4;
+      }
+
+      body.dark button:hover {
+        background-color: #0097a7;
+      }
+
+      /* Toggle Switch */
+      .toggle-container {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+      }
+
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 26px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: #0078d7;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(24px);
+      }
+
+      /* Resppnsive Design */
+      @media (max-width: 600px) {
+        .container {
+          width: 90%;
+          padding: 25px;
+        }
+
+        h1 {
+          font-size: 1.5rem;
+        }
+
+        textarea {
+          height: 120px;
+        }
+
+        button {
+          width: 100%;
+          font-size: 0.95rem;
+        }
+
+        .footer {
+          font-size: 0.8rem;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1> AI Case Prediction System</h1>
+      <h1>🤖 AI Case Prediction System</h1>
       <p>
         Enter any real-world situation below, and the AI will analyze it for
         possible positive and negative outcomes.
@@ -157,9 +283,10 @@
           required
         ></textarea
         ><br />
-        <button type="submit"> Analyze Situation</button>
+        <button type="submit">🔍 Analyze Situation</button>
       </form>
 
+      <!-- 🌀 Loading Animation -->
       <div class="loading-overlay" id="loading">
         <div class="spinner"></div>
         <div class="loading-text">Analyzing... Please wait</div>
@@ -174,20 +301,22 @@
     </div>
 
     <script>
+      // 💡 Show spinner when form is submitted
       const form = document.getElementById("analyzeForm");
       const loadingOverlay = document.getElementById("loading");
       const situationBox = document.getElementById("situation");
 
-      form.addEventListener("submit", function (event) {
+      function validateInput() {
         const situation = situationBox.value.trim();
         situationBox.classList.remove("invalid");
 
         if (situation === "") {
           alert("⚠️ Please enter a situation before analyzing!");
           situationBox.classList.add("invalid");
-          event.preventDefault(); // stop form submission
-          return;
+          return false;
         }
+
+        // Word count check
         const wordCount = situation
           .split(/\s+/)
           .filter((word) => word.length > 0).length;
@@ -196,11 +325,12 @@
             "⚠️ Please describe your situation in at least 5 words for better analysis!"
           );
           situationBox.classList.add("invalid");
-          event.preventDefault(); // stop form submission
-          return;
+          return false;
         }
-        loadingOverlay.style.display = "flex"; 
-      });
+
+        // ✅ Passed validation
+        loadingOverlay.style.display = "flex"; // show spinner
+      }
     </script>
   </body>
 </html>
