@@ -51,7 +51,7 @@ def analyze():
         elif current_section == "negative":
             negative_part += line + "\n"
 
-    
+    # ✅ Save to history BEFORE returning
     history_entry = {
         "situation": situation,
         "positive": positive_part.strip(),
@@ -69,7 +69,7 @@ def analyze():
     with open(HISTORY_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
 
-    
+    # ✅ Now return the result page
     return render_template('result.html',
                            situation=situation,
                            positive=positive_part.strip(),

@@ -6,9 +6,18 @@
     <title>Case Prediction System</title>
     <style>
       /* 🌿 Global Styles */
+      :root {
+        --bg-light: linear-gradient(135deg, #a2c2e2, #f6f9fc);
+        --bg-dark: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        --container-light: #ffffff;
+        --container-dark: #1e1e1e;
+        --text-light: #333;
+        --text-dark: #f9f9f9;
+      }
+
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(-45deg, #a963ef, #f5e1fd, #b47fc3, #ede0f8);
+        background: linear-gradient(-45deg, #a2c2e2, #f6f9fc, #b0d0e0, #e8f0ff);
         background-size: 400% 400%;
         animation: gradientBG 10s ease infinite;
         display: flex;
@@ -152,7 +161,7 @@
         box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
       }
 
-      /* Dark Mode */
+      /* 🌙 Dark Mode */
       body.dark {
         background: var(--bg-dark);
         color: var(--text-dark);
@@ -167,7 +176,7 @@
         color: white;
       }
       body.dark p {
-        color: rgb(207, 196, 196);
+        color: silver;
       }
 
       body.dark textarea {
@@ -184,7 +193,7 @@
         background-color: #0097a7;
       }
 
-      /* Toggle Switch */
+      /* 🌗 Toggle Switch Styling */
       .toggle-container {
         position: absolute;
         top: 15px;
@@ -236,7 +245,7 @@
         transform: translateX(24px);
       }
 
-      /* Resppnsive Design */
+      /* 📱 Responsive Design */
       @media (max-width: 600px) {
         .container {
           width: 90%;
@@ -260,11 +269,42 @@
           font-size: 0.8rem;
         }
       }
+
+      .history-btn {
+        display: inline-block;
+        background: linear-gradient(90deg, #6a11cb, #2575fc);
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 10px;
+        transition: 0.3s ease;
+        margin-top: 15px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .history-btn:hover {
+        background: linear-gradient(90deg, #2575fc, #6a11cb);
+        transform: scale(1.05);
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>🤖 AI Case Prediction System</h1>
+
+      <!-- 🌙 Theme Toggle -->
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" id="theme-toggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <center>
+        <a href="/history" class="history-btn">View History</a>
+      </center>
+
       <p>
         Enter any real-world situation below, and the AI will analyze it for
         possible positive and negative outcomes.
@@ -281,8 +321,8 @@
           name="situation"
           placeholder="Type your situation here..."
           required
-        ></textarea
-        ><br />
+        ></textarea>
+        <br />
         <button type="submit">🔍 Analyze Situation</button>
       </form>
 
@@ -301,7 +341,7 @@
     </div>
 
     <script>
-      // 💡 Show spinner when form is submitted
+      // 💡 Input validation and loading spinner
       const form = document.getElementById("analyzeForm");
       const loadingOverlay = document.getElementById("loading");
       const situationBox = document.getElementById("situation");
@@ -316,7 +356,6 @@
           return false;
         }
 
-        // Word count check
         const wordCount = situation
           .split(/\s+/)
           .filter((word) => word.length > 0).length;
@@ -328,9 +367,15 @@
           return false;
         }
 
-        // ✅ Passed validation
         loadingOverlay.style.display = "flex"; // show spinner
+        return true; // allow form to submit
       }
+
+      // 🌙 Dark mode toggle
+      const toggle = document.getElementById("theme-toggle");
+      toggle.addEventListener("change", () => {
+        document.body.classList.toggle("dark");
+      });
     </script>
   </body>
 </html>
