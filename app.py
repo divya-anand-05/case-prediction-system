@@ -5,17 +5,17 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# ============================
+
 # DATABASE CONFIGURATION
-# ============================
+
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///history.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
-# ============================
+
 # DATABASE MODEL
-# ============================
+
 class AnalysisHistory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     situation = db.Column(db.Text, nullable=False)
@@ -29,9 +29,7 @@ with app.app_context():
     db.create_all()
 
 
-# ============================
-# ROUTES
-# ============================
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -77,9 +75,9 @@ def analyze():
     positive_final = positive_part.strip()
     negative_final = negative_part.strip()
 
-    # ============================
+
     # SAVE TO DATABASE
-    # ============================
+
     entry = AnalysisHistory(
         situation=situation,
         positive=positive_final,
@@ -98,7 +96,7 @@ def analyze():
 
 @app.route('/history')
 def history():
-    # Newest first
+   
     records = AnalysisHistory.query.order_by(AnalysisHistory.id.desc()).all()
     return render_template('history.html', history=records)
 

@@ -103,7 +103,7 @@
         color: #005fa3;
       }
 
-      /* 🌗 Dark Mode */
+      /*  Dark Mode */
       body.dark {
         background: var(--bg-dark);
         color: var(--text-dark);
@@ -124,7 +124,7 @@
         color: #eaeaea;
       }
 
-      /* 🌙 Theme Toggle */
+      /*  Theme Toggle */
       .toggle-container {
         position: absolute;
         top: 20px;
@@ -176,7 +176,7 @@
         transform: translateX(24px);
       }
 
-      /* 📱 Responsive Design */
+      /*  Responsive Design */
       @media (max-width: 768px) {
         .container {
           flex-direction: column;
@@ -190,7 +190,7 @@
     </style>
   </head>
   <body>
-    <!-- 🌙 Theme Toggle -->
+    <!--  Theme Toggle -->
     <div class="toggle-container">
       <label class="switch">
         <input type="checkbox" id="theme-toggle" />
@@ -198,16 +198,16 @@
       </label>
     </div>
 
-    <h1>🤖 AI Situation Analysis Result</h1>
-    <h3>📝 Situation: {{ situation }}</h3>
+    <h1>AI Situation Analysis Result</h1>
+    <h3>Situation: {{ situation }}</h3>
 
     <div class="container">
       <div class="box">
-        <h2>🌱 Positive Possibilities</h2>
+        <h2>Positive Possibilities</h2>
         <pre>{{ positive }}</pre>
       </div>
       <div class="box">
-        <h2>⚠️ Negative Possibilities</h2>
+        <h2>Negative Possibilities</h2>
         <pre>{{ negative }}</pre>
       </div>
     </div>
@@ -217,7 +217,7 @@
     </div>
 
     <script>
-      // 🌙 Dark Mode Toggle
+      //  Dark Mode Toggle
       const toggle = document.getElementById("theme-toggle");
       toggle.addEventListener("change", () => {
         document.body.classList.toggle("dark");

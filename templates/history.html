@@ -42,15 +42,15 @@
     </style>
   </head>
   <body>
-    <h1>📜 History of Analyses</h1>
+    <h1>History of Analyses</h1>
 
     {% if history %} {% for item in history %}
     <div class="card">
-      <h2>🧩 Situation:</h2>
+      <h2>Situation:</h2>
       <p>{{ item.situation }}</p>
-      <h3>🌱 Positive Possibilities:</h3>
+      <h3>Positive Possibilities:</h3>
       <pre>{{ item.positive }}</pre>
-      <h3>⚠️ Negative Possibilities:</h3>
+      <h3>Negative Possibilities:</h3>
       <pre>{{ item.negative }}</pre>
     </div>
     {% endfor %} {% else %}

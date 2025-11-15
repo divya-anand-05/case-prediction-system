@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Case Prediction System</title>
     <style>
-      /* 🌿 Global Styles */
       :root {
         --bg-light: linear-gradient(135deg, #a2c2e2, #f6f9fc);
         --bg-dark: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
@@ -117,7 +116,7 @@
         text-decoration: underline;
       }
 
-      /* 🌀 Loading Spinner */
+      /*  Loading Spinner */
       .loading-overlay {
         display: none;
         position: absolute;
@@ -161,7 +160,7 @@
         box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
       }
 
-      /* 🌙 Dark Mode */
+      /*  Dark Mode */
       body.dark {
         background: var(--bg-dark);
         color: var(--text-dark);
@@ -193,7 +192,7 @@
         background-color: #0097a7;
       }
 
-      /* 🌗 Toggle Switch Styling */
+      /*  Toggle Switch Styling */
       .toggle-container {
         position: absolute;
         top: 15px;
@@ -245,7 +244,7 @@
         transform: translateX(24px);
       }
 
-      /* 📱 Responsive Design */
+      /*  Responsive Design */
       @media (max-width: 600px) {
         .container {
           width: 90%;
@@ -291,9 +290,9 @@
   </head>
   <body>
     <div class="container">
-      <h1>🤖 AI Case Prediction System</h1>
+      <h1>AI Case Prediction System</h1>
 
-      <!-- 🌙 Theme Toggle -->
+      <!--  Theme Toggle -->
       <div class="toggle-container">
         <label class="switch">
           <input type="checkbox" id="theme-toggle" />
@@ -323,10 +322,10 @@
           required
         ></textarea>
         <br />
-        <button type="submit">🔍 Analyze Situation</button>
+        <button type="submit">Analyze Situation</button>
       </form>
 
-      <!-- 🌀 Loading Animation -->
+      <!--  Loading Animation -->
       <div class="loading-overlay" id="loading">
         <div class="spinner"></div>
         <div class="loading-text">Analyzing... Please wait</div>
@@ -341,7 +340,7 @@
     </div>
 
     <script>
-      // 💡 Input validation and loading spinner
+      //  Input validation and loading spinner
       const form = document.getElementById("analyzeForm");
       const loadingOverlay = document.getElementById("loading");
       const situationBox = document.getElementById("situation");
@@ -371,7 +370,7 @@
         return true; // allow form to submit
       }
 
-      // 🌙 Dark mode toggle
+      //  Dark mode toggle
       const toggle = document.getElementById("theme-toggle");
       toggle.addEventListener("change", () => {
         document.body.classList.toggle("dark");
