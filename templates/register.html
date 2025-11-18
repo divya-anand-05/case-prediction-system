@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+
+    <style>
+      :root {
+        --bg-light: #f6f9fc;
+        --bg-dark: #101820;
+        --card-light: #ffffff;
+        --card-dark: #1c1f26;
+        --text-light: #222;
+        --text-dark: #eee;
+        --primary: #a770ef;
+        --primary2: #cf8bf3;
+        --primary3: #fdb99b;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: var(--bg-light);
+        color: var(--text-light);
+        transition: 0.3s;
+      }
+
+      body.dark {
+        background: var(--bg-dark);
+        color: var(--text-dark);
+      }
+
+      .container {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary2),
+          var(--primary3)
+        );
+        padding: 20px;
+      }
+
+      .card {
+        background: var(--card-light);
+        padding: 30px;
+        width: 100%;
+        max-width: 380px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        transition: 0.3s;
+      }
+
+      body.dark .card {
+        background: var(--card-dark);
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: 600;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        font-size: 15px;
+        transition: 0.3s;
+      }
+
+      body.dark input {
+        background: #2a2f3a;
+        border: 1px solid #444;
+        color: #eee;
+      }
+
+      input:focus {
+        border-color: var(--primary);
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, var(--primary), var(--primary2));
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 10px;
+        color: white;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+
+      .link {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+      }
+
+      a {
+        color: var(--primary2);
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .spinner {
+        display: none;
+        width: 28px;
+        height: 28px;
+        border: 4px solid transparent;
+        border-top: 4px solid white;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin: 0 auto;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const theme = localStorage.getItem("theme");
+        if (theme === "dark") document.body.classList.add("dark");
+      });
+
+      function showSpinner() {
+        document.getElementById("btnText").style.display = "none";
+        document.getElementById("spinner").style.display = "block";
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h2>Create Account</h2>
+
+        <form action="/register" method="POST" onsubmit="showSpinner()">
+          <input type="text" name="username" placeholder="Full Name" required />
+
+          <input type="email" name="email" placeholder="Email" required />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+
+          <button type="submit">
+            <span id="btnText">Register</span>
+            <div class="spinner" id="spinner"></div>
+          </button>
+        </form>
+
+        <div class="link">
+          Already have an account?
+          <a href="/login">Login</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

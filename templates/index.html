@@ -286,58 +286,115 @@
         background: linear-gradient(90deg, #2575fc, #6a11cb);
         transform: scale(1.05);
       }
+
+      /* -------- AUTH BUTTONS -------- */
+.auth-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.auth-btn {
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s ease;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+.auth-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+/* Logout button (simple blue) */
+.logout {
+  background: #e63946;
+}
+
+.logout:hover {
+  background: #c52f3b;
+}
+
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1>AI Case Prediction System</h1>
 
-      <!--  Theme Toggle -->
-      <div class="toggle-container">
-        <label class="switch">
-          <input type="checkbox" id="theme-toggle" />
-          <span class="slider"></span>
-        </label>
-      </div>
+<div class="container">
 
-      <center>
-        <a href="/history" class="history-btn">View History</a>
-      </center>
+  <!--  LOGIN / LOGOUT UI -->
 
-      <p>
-        Enter any real-world situation below, and the AI will analyze it for
-        possible positive and negative outcomes.
-      </p>
-
-      <form
-        id="analyzeForm"
-        action="/analyze"
-        method="post"
-        onsubmit="return validateInput()"
-      >
-        <textarea
-          id="situation"
-          name="situation"
-          placeholder="Type your situation here..."
-          required
-        ></textarea>
-        <br />
-        <button type="submit">Analyze Situation</button>
-      </form>
-
-      <!--  Loading Animation -->
-      <div class="loading-overlay" id="loading">
-        <div class="spinner"></div>
-        <div class="loading-text">Analyzing... Please wait</div>
-      </div>
-
-      <div class="footer">
-        <p>
-          Powered by
-          <a href="https://ollama.ai" target="_blank">LLaMA3 + Flask</a>
-        </p>
-      </div>
+<div class="auth-info">
+  {% if current_user.is_authenticated %}
+    <p class="auth-text">
+      Hi, {{ current_user.username }} —
+      <a href="{{ url_for('logout') }}" class="auth-btn logout">Logout</a>
+    </p>
+  {% else %}
+    <div class="auth-buttons">
+      <a href="{{ url_for('login') }}" class="auth-btn">Login</a>
+      <a href="{{ url_for('register') }}" class="auth-btn">Register</a>
     </div>
+  {% endif %}
+</div>
+
+  
+
+  <h1>AI Case Prediction System</h1>
+
+  <!-- Theme Toggle -->
+  <div class="toggle-container">
+    <label class="switch">
+      <input type="checkbox" id="theme-toggle" />
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <center>
+    <a href="/history" class="history-btn">View History</a>
+  </center>
+
+  <p>
+    Enter any real-world situation below, and the AI will analyze it for
+    possible positive and negative outcomes.
+  </p>
+
+  <form
+    id="analyzeForm"
+    action="/analyze"
+    method="post"
+    onsubmit="return validateInput()"
+  >
+    <textarea
+      id="situation"
+      name="situation"
+      placeholder="Type your situation here..."
+      required
+    ></textarea>
+    <br />
+    <button type="submit">Analyze Situation</button>
+  </form>
+
+  <!-- Loading Animation -->
+  <div class="loading-overlay" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Analyzing... Please wait</div>
+  </div>
+
+  <div class="footer">
+    <p>
+      Powered by
+      <a href="https://ollama.ai" target="_blank">LLaMA3 + Flask</a>
+    </p>
+  </div>
+
+</div>
+
+</body>
 
     <script>
       //  Input validation and loading spinner
